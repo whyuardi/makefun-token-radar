@@ -3,82 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Radar — pre-token protocols ranked by implied launch value</title>
+<title>Token Radar: pre-token protocols priced by the market's own size curve</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <p class="kicker">TOKEN RADAR · <span id="asof">—</span></p>
-    <h1>Which pre-token protocol is worth farming next?</h1>
-    <p class="lede">Every protocol in the snapshot that <strong>records no token</strong>, ranked by the
-    implied value of the token it might one day issue — learned from the market caps of
-    protocols whose tokens already trade. Click any row for its farm plan.</p>
-    <div class="stats" id="stats"></div>
-    <nav class="tabs" id="tabs">
-      <button data-view="board" class="on">Board</button>
-      <button data-view="live">Already trading</button>
-      <button data-view="method">How it ranks</button>
-    </nav>
-  </div>
-</header>
-<main class="wrap">
-  <section id="view-board">
-    <div class="controls">
-      <input id="q" type="search" placeholder="Search name or slug…" aria-label="Search protocols">
-      <select id="cat" aria-label="Filter by category"><option value="">All categories</option></select>
-      <select id="chain" aria-label="Filter by chain"><option value="">All chains</option></select>
-      <select id="sort" aria-label="Sort board">
-        <option value="implied">Sort: implied value ↓</option>
-        <option value="ev">Sort: value per farmer ↓</option>
-        <option value="tvl">Sort: TVL ↓</option>
-        <option value="growth">Sort: 7-day growth ↓</option>
-        <option value="age">Sort: longest running ↓</option>
-      </select>
-      <select id="preset" aria-label="Preset view">
-        <option value="">All rows</option>
-        <option value="top10cat">Preset: top 10 per category</option>
-        <option value="topev">Preset: highest value per farmer</option>
-      </select>
-      <label class="check"><input id="watchonly" type="checkbox"> Watchlist only</label>
-    </div>
-    <p class="count" id="count"></p>
-    <div class="tablewrap">
-      <table id="board">
-        <thead><tr>
-          <th>#</th><th>Protocol</th><th>Category</th><th>Chains</th>
-          <th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>
-          <th class="num">Implied FDV</th><th class="num">Per farmer</th>
-        </tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </div>
-    <p class="hint">Rows are ranked by implied value. “Records no token” means the snapshot carries
-    no market cap, CoinGecko id or symbol for the protocol — it is not proof that no token exists.</p>
-  </section>
-  <section id="detail" class="detail" hidden></section>
-  <section id="view-live" hidden>
-    <h2>Already trading — the market the model learns from</h2>
-    <p>These protocols record a token, so the board never ranks them. Their market-cap-to-TVL
-    ratios are the calibration behind every implied value above.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Protocol</th><th>Category</th><th class="num">TVL</th>
-      <th class="num">Market cap</th><th class="num">Mcap / TVL</th></tr></thead>
-      <tbody id="liverows"></tbody>
-    </table></div>
-  </section>
-  <section id="view-method" hidden>
-    <h2>How it ranks</h2>
-    <div id="method"></div>
-  </section>
-  <footer>
-    <p>Snapshot: <span id="src">—</span> · Watchlist floor $50,000,000 TVL.
-    Implied values are this radar's own claim, not a prediction that a token will launch,
-    and not a price. Farm plans name costs and times; check the protocol's own pages before
-    you send funds anywhere.</p>
-  </footer>
-</main>
-<script src="../data.js"></script>
+<a class="skip" href="#board">Skip to the board</a>
+<main id="board" tabindex="-1" aria-busy="true"></main>
+<script src="data.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

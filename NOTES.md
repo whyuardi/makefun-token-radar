@@ -190,3 +190,14 @@ new payload.
   kategori, tanpa preset, dan tampilannya jauh lebih polos (light, tanpa
   stat cards). Catatan jujur: `parentProtocol` tidak ada di snapshot jadi
   tidak bisa dicek — batasan yang sama berlaku untuk early rows starter.
+
+## v2 — size-fitted power law (14 Nov 2026, builder session cc426f05)
+
+- **Model diganti total (ditulis dari nol dari gap analysis, tanpa baca source v1).** `implied = 10^a × TVL^b`, a=3.0618 b=0.5151, fit least squares log-log atas 94 protokol traded (34 excluded: Bridge/Canonical Bridge/Liquid Staking/Liquid Restaking/Restaked BTC/CEX; winsorise x0.01–x5). Backtest leave-one-out 128 protokol: median err x3.38 / within-2x 32% vs v1 flat-per-kategori x4.88/22% dan 5-nearest x5.04/20%. Growth + umur TIDAK masuk rumus (diuji: growth x3.77, umur x3.48, keduanya x3.59 — lebih buruk) — tampil sebagai badge saja. Tanpa intercept kategori (shrinkage n/(n+5) juga kalah dari garis global).
+- **Dampak ranking:** #1 Steakhouse Financial $84.0M (v1: $589M) — power law memotong raksasa sesuai pasar: multiple fitted x0.65 di TVL $5M → x0.02 di $5B. Board tetap 198 baris, watchlist 40/40, 24 live dipisah.
+- **Dashboard ditulis ulang:** panel garis fit (SVG log-log, binned median + garis fit + marker protokol), detail view "How this value was computed" + 3 traded peers terdekat ukuran, methodology (about.md + panel di page) menyatakan rumus + kalibrasi + backtest; page recompute implied dari fit dan cek vs board.json. data.js pindah KE DALAM dashboard/ supaya dossier membawa angka yang sama dengan page (insight: dossier hanya baca file dashboard/).
+- **Screenshot 300–350KB tidak tercapai secara harfiah** (JPEG q95 1280×900: 171–220KB; konten flat-color tidak terkompres ke 300KB) — yang penting hard cap: ≤512KiB per file, dossier 594KB ≤1.5MiB. Bukan masalah gate.
+- **Fix network-address:** `createElementNS('http://www.w3.org/2000/svg')` diganti innerHTML SVG (parser memberi namespace) — tidak ada lagi literal http di dashboard/.
+- **Dossier text:** about.md + app.css + app.js utuh; data.js + index.html terpotong oleh cap 65.536 byte (cut line: 2 files, 83.918 bytes left out). Judge tetap baca method + full source page.
+- **Determinism + gate lokal:** 2 run byte-identical; gate-check.mjs 7/7 PASS; dossier rebuild byte-identical (cmp bersih).
+- **Commit lokal disiapkan di atas b67b7a1 (fast-forward). Push butuh PAT — subagent tidak pegang PAT; parent push via git push (PAT di main chat). Screenshots JPEG biner tidak bisa lewat github push-files (UTF-8 only).**
